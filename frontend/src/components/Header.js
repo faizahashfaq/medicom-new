@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import '../style/header.css'
-const Header = () => {
+import { Link} from 'react-router-dom'
+
+ const Header = () => {
   let width = window.innerWidth
   let searchBarSize = '50'
   if (width <= 880 && width > 768) {
@@ -13,6 +13,7 @@ const Header = () => {
     navList: 'none',
     searchBar: 'noDisplay',
   })
+  const [searchInput, setSearch] = useState("")
   const navToggleHandler = () => {
     if (classList.navList === 'none') {
       setClassList({
@@ -45,7 +46,8 @@ const Header = () => {
       searchBar: 'noDisplay',
     })
   }
-
+  
+  const user = JSON.parse(localStorage.getItem("user"))
   return (
     <div>
       <div className={classList.searchBar}>
@@ -56,15 +58,17 @@ const Header = () => {
               className='searchInput'
               placeholder='Search'
               type='text'
+              onChange={(e)=> setSearch(e.target.value)}
+              value={searchInput}
               size={searchBarSize}
             />
-            <button className='searchBtn'>Search</button>
+            
+            <input type="submit" value="Search"/> 
           </form>
         </div>
         <div onClick={cancelBtnHandler} style={{ paddingTop: '1.2rem' }}>
           <button className='cancelBtn'>Cancel</button>
         </div>
-      </div>
       <div className='navHeader'>
         <div>
           <Link className='navLogo' to='/'>
@@ -90,9 +94,12 @@ const Header = () => {
         </div>
 
         <div className='navButtons'>
+          {user? <Link to='/login'>
+            <button onClick={()=>localStorage.removeItem("user")} className='loginBtn'>Logout</button>
+          </Link> :
           <Link to='/login'>
-            <button className='loginBtn'>Login</button>
-          </Link>
+          <button className='loginBtn'>Login</button>
+        </Link>}
           <Link to='/cart'>
             <button className='cartIcon'>
               <i className='fa fa-shopping-cart' aria-hidden='true'></i>
@@ -124,6 +131,7 @@ const Header = () => {
           <Link to='/about'>About</Link>
         </li>
       </ul>
+    </div>
     </div>
   )
 }

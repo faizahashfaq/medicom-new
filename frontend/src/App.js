@@ -11,6 +11,7 @@ import ProductPage from './pages/ProductPage'
 import SignUp from './pages/RegistrationPage'
 import SingleProduct from './pages/SingleProduct'
 import UserProfilePage from './pages/UserProfilePage'
+import Dashboard from './pages/AdminDashboard'
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
         <Route path='/HomePage' component={HomePage} exact />
         <Route path='/' component={HomePage} exact />
         <Route path='/product/category/:category' component={Category} exact />
+        <Route path="/admin/dashboard" component={Dashboard} exact />
       </div>
     </Router>
   )

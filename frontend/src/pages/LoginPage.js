@@ -5,13 +5,13 @@ import Container from "@material-ui/core/Container";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Grid from "@material-ui/core/Grid";
-import Link from "@material-ui/core/Link";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 //import Box from '@material-ui/core/Box'
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import React, { useState } from "react";
+import {Link, Redirect} from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -37,24 +37,32 @@ const LoginPage = () => {
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [dataObject, setData] = useState({});
-  async function onSubmit(e) {
+  function onSubmit(e) {
     e.preventDefault();
-    await fetch(`http://127.0.0.1:5000/api/users`)
+    fetch(`http://127.0.0.1:5000/api/users`)
       .then((res) => {
         const data = res.json();
         return data;
       })
       .then(function (responseData) {
-        setData({
-          data: responseData,
-        });
+        responseData.forEach((user)=>{
+          if(user.email === email && user.password === password){
+            localStorage.setItem("user", JSON.stringify(user))
+            
+          }
+        })
       })
+      .then(()=> (<Redirect to="/" />))
       .catch((err) => console.log(err));
   }
-
+ 
+  const user = JSON.parse(localStorage.getItem("user"))
+  console.log(user);
   return (
+    
     <div>
+      {user? <Redirect to="/" />:
+      
       <Container component='main' maxWidth='xs'>
         <CssBaseline />
 
@@ -101,6 +109,7 @@ const LoginPage = () => {
               fullWidth
               variant='contained'
               color='primary'
+             
               className={classes.submit}>
               Sign In
             </Button>
@@ -119,10 +128,13 @@ const LoginPage = () => {
                 </Link>
               </Grid>
             </Grid>
+            {}
           </form>
         </div>
       </Container>
+    }
     </div>
+  
   );
 };
 export default LoginPage;

@@ -5,6 +5,7 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 const userRouter = require('./routes/UserRouter')
 const categoryRouter = require('./routes/CategoryRouter')
+const productRouter = require("./routes/ProductRouter")
 dotenv.config()
 const app = express()
 
@@ -32,8 +33,8 @@ app.get('/', (req, res)=>{
 
 app.use('/api/users', userRouter)
 app.use('/api/category', categoryRouter)
+app.use('/api/products', productRouter)
 
-
-app.listen(5000 ,()=>{
-    console.log("Listening at Port 5000")
+app.listen(5000, ()=>{
+  console.log("Listneing to the port")
 })

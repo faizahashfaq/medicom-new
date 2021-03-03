@@ -4,10 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-<<<<<<< HEAD
     "start": "nodemon node server.js",
-=======
->>>>>>> 2558a6177517bab4d85ad06ee451c75f6141e847
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -19,11 +16,8 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "mongoose": "^5.11.18"
-<<<<<<< HEAD
   },
   "devDependencies": {
     "nodemon": "^2.0.7"
-=======
->>>>>>> 2558a6177517bab4d85ad06ee451c75f6141e847
   }
 }

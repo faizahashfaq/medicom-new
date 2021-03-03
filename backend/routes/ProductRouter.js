@@ -7,7 +7,10 @@ router.get('/',  async (req, res)=>{
     const products = await Product.find({})
     res.send(products)
 })
-
+router.get('/:id', (req,res)=>{
+    const product = Product.findOne({_id: req.params.id})
+    res.send(product)
+})
 router.post('/add-product', async (req,res)=>{
     const product = new Product({
         name: req.body.name,
